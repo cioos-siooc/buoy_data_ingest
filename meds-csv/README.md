@@ -2,7 +2,7 @@
 
 ## Installation
 
-This tool helps download a list of buoys from MEDS.
+This tool helps download buoy data in CSV format from MEDS.
 
 1. Edit buoys_download.txt to the buoys you want to include in your dataset. See list of buoys [here](http://www.meds-sdmm.dfo-mpo.gc.ca/alphapro/wave/waveshare/INVENTORY/b_pw_inv.html)
 2. (Optional) Edit the zip file or csv file download locations in `meds_download.sh`

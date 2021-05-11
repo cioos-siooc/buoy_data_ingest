@@ -1,0 +1,3 @@
+DB_CONNECTION = "postgres://user:pass@host:port/database"
+DB_TABLE = 'swob_marine'
+SENTRY_URL = "https://abc@def.ingest.sentry.io/12345"

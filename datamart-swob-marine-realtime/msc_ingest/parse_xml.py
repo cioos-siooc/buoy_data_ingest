@@ -1,8 +1,10 @@
-'''
+#!/usr/bin/env python3
+
+"""
 
 Parse XML from swob-ml and flatten
 
-The resulting JSON looks like 
+The resulting JSON looks like
 
 {
   "result_time": "2020-01-16T20:32:15.913Z"
@@ -24,23 +26,18 @@ The resulting JSON looks like
 }
 
 
-'''
+"""
 
 # TODO convert strings to numerics if needed using xmltodict postprocessor option
 
-import click
-import argparse
-import xmltodict
-
-from sqlalchemy import create_engine, MetaData, Table
-from sqlalchemy.dialects.postgresql import insert
-
 import json
-import sys
+
+import click
+import xmltodict
 
 
 def get_key_val_pairs_from_xml_elements(elements):
-    '''
+    """
     Iterate through json version of <elements> tags convert JSON structure to key,value pairs
 
     <elements>
@@ -52,63 +49,83 @@ def get_key_val_pairs_from_xml_elements(elements):
         </element>
     </elements>
 
-    '''
+    """
 
     results = {}
     for element in elements:
-        results[element['@name']] = element['@value']
+        results[element["@name"]] = element["@value"]
 
-        if 'qualifier' in element:
-            # needed b/c xmltodict could make 'qualifiers' an array if > 1 elements otherwise a dictionary
-            if not isinstance(element['qualifier'], list):
-                qualifiers = [element['qualifier']]
+        if "qualifier" in element:
+            # needed b/c xmltodict could make 'qualifiers' an array
+            # if > 1 elements otherwise a dictionary
+            if not isinstance(element["qualifier"], list):
+                qualifiers = [element["qualifier"]]
 
             # there can be multiple qualifiers
             for qualifier in qualifiers:
-                results[f"{element['@name']}_{qualifier['@name']}"] = qualifier['@value']
+                results[f"{element['@name']}_{qualifier['@name']}"] = qualifier[
+                    "@value"
+                ]
     return results
 
 
-def replace_values(dict, from_value, to_value):
-    'Replaces values in dictionary. Mutates source dictionary. Non-recursive'
-    for key, val in dict.items():
+def replace_values(input_dict, from_value, to_value):
+    "Replaces values in dictionary. Mutates source dictionary. Non-recursive"
+    for key, val in input_dict.items():
         if val == from_value:
-            dict[key] = to_value
-    return dict
+            input_dict[key] = to_value
+    return input_dict
 
 
 def format_as_flat_record(data):
-    'Flattens the json structure that is created by xmltodict to make it more suitable for displaying as tabular data'
-    # 'results' and 'metadata' stored at different paths in the XML. results & metadata are dictionaries
+    """
+    Flattens the json structure that is created by xmltodict to make
+    it more suitable for displaying as tabular data
+    """
+    # 'results' and 'metadata' stored at different paths in the XML.
+    # results & metadata are dictionaries
     results = get_key_val_pairs_from_xml_elements(
-        data['om:ObservationCollection']['om:member']['om:Observation']['om:result']['elements']['element'])
+        data["om:ObservationCollection"]["om:member"]["om:Observation"]["om:result"][
+            "elements"
+        ]["element"]
+    )
 
     metadata = get_key_val_pairs_from_xml_elements(
-        data['om:ObservationCollection']['om:member']['om:Observation']['om:metadata']['set']['identification-elements']['element'])
+        data["om:ObservationCollection"]["om:member"]["om:Observation"]["om:metadata"][
+            "set"
+        ]["identification-elements"]["element"]
+    )
 
     # samplingTime also recorded as date_tm?
-    sampling_time = data['om:ObservationCollection']['om:member'][
-        'om:Observation']['om:samplingTime']['gml:TimeInstant']['gml:timePosition']
+    sampling_time = data["om:ObservationCollection"]["om:member"]["om:Observation"][
+        "om:samplingTime"
+    ]["gml:TimeInstant"]["gml:timePosition"]
 
-    result_time = data['om:ObservationCollection']['om:member'][
-        'om:Observation']['om:resultTime']['gml:TimeInstant']['gml:timePosition']
+    result_time = data["om:ObservationCollection"]["om:member"]["om:Observation"][
+        "om:resultTime"
+    ]["gml:TimeInstant"]["gml:timePosition"]
 
     # combine all of these
-    record = {**metadata, "sampling_time": sampling_time,
-              "result_time": result_time, **results}
+    record = {
+        **metadata,
+        "sampling_time": sampling_time,
+        "result_time": result_time,
+        **results,
+    }
 
     return record
 
 
 def xml_file_to_dictionary(xml_file):
-    'Converts XML file to JSON'
-    with open(xml_file, 'r') as content_file:
+    "Converts XML file to JSON"
+    with open(xml_file, "r") as content_file:
         xml_string = content_file.read()
 
     return xmltodict.parse(xml_string)
 
 
 def buoy_xml_to_json(xml_file_path):
+    "Converts XML to JSON"
     # convert XML file to a dictionary with matching structure
     data_dict = xml_file_to_dictionary(xml_file_path)
 
@@ -116,16 +133,19 @@ def buoy_xml_to_json(xml_file_path):
     record = format_as_flat_record(data_dict)
 
     # remove fill values
-    replace_values(record, 'MSNG', None)
+    replace_values(record, "MSNG", None)
     return record
 
 
 @click.command()
-@click.argument('filename', type=click.Path(exists=True))
+@click.argument("filename", type=click.Path(exists=True))
 def main(filename):
+    """
+    Handle command line interaction via click
+    """
     record = buoy_xml_to_json(filename)
     print(json.dumps(record, indent=1))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -11,6 +11,7 @@ This package:
 
 ## Installation
 
+1. `cd` to this directory
 1. Download [metaf2xml](https://metaf2xml.sourceforge.io/), install parser, make sure it works by running `perl /opt/metaf2xml-2.6/bin/metaf2xml.pl -h`.
 1. Install a Python3 virtualenv
 1. Install this package using -e
@@ -25,6 +26,7 @@ This package:
 
 ## Running
 
+1. `cd` to this directory
 1. Activate your Python3 virtualenv
 1. Test that the packages are installed:
 
