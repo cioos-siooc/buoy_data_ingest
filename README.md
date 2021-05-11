@@ -1,15 +1,15 @@
 # ECCC / DFO Buoy ingestion tools
 
-This pacakage harvests marine buoy data from ECCC/DFO and has steps to put the data into [ERDDAP](https://coastwatch.pfeg.noaa.gov/erddap). Click on a folder for more in depth READMEs.
+This package harvests buoy data from ECCC/DFO and has steps to put the data into [ERDDAP](https://data.cioospacific.ca/erddap). Click on a folder for a more in-depth README.
 
-## MSC-Datamart
+## Datamart Bulletins Realtime
 
-- Realtime OPP moored buoy data from MSC Datamart via AMQP -> Postgres DB -> ERDDAP
+- Realtime bulletins from datamart alphanumeric. Buoy data is parsed from the raw FM13 format and formatted. MSC Datamart AMQP -> Postgres DB -> ERDDAP
 
-## MEDS
+## Datamart SWOB Marine Realtime
 
-- Non-realtime data is harvested from .csv files -> ERDDAP
+- Realtime OPP moored buoy data from MSC Datamart. MSC Datamart AMQP -> Postgres DB -> ERDDAP
 
-## MEDS Realtime
+## MEDS-CSV
 
-- Realtime non-OPP moored buoy data from Datamart in FM13 format via AMQP -> Postgres DB -> ERDDAP
+- Scripts to download non-realtime CSV data
