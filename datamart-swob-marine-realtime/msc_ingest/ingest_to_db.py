@@ -14,17 +14,17 @@ See docs at https://dd4.weather.gc.ca/observations/doc/
 # TODO could auto-create table here
 
 import click
+from dotenv import dotenv_values
 from sqlalchemy import MetaData, Table, create_engine
 from sqlalchemy.dialects.postgresql import insert
 
 from msc_ingest.parse_xml import buoy_xml_to_json
-import configparser
 
-config = dotenv_values("config.ini") 
+config = dotenv_values("config.ini")
 
-TABLE_NAME = config['DB_TABLE']
+TABLE_NAME = config["DB_TABLE"]
 
-db = create_engine(config['DB_CONNECTION'])
+db = create_engine(config["DB_CONNECTION"])
 
 # load existing swob table columns list
 swob_table_meta = MetaData(db)

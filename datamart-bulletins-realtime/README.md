@@ -31,13 +31,13 @@ This package:
 1. Test that the packages are installed:
 
    ```bash
-   python -m fm13_ingest --level decode sample_fm13
+   python -m fm13_ingest --level decode fm13_samples/1
    ```
 
 1. Test database connection
 
    ```bash
-   python -m fm13_ingest --level ingest sample_fm13
+   python -m fm13_ingest --level ingest fm13_samples/1
    ```
 
 1. Start service

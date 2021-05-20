@@ -21,15 +21,15 @@ This repo contains scripts to receive and parse the realtime marine [SWOB-XML](h
 
    `pip install -e .`
 
-1. Test that the package is installed by running `python -m msc_ingest.parse_xml sample.xml` from this directory
+1. Test that the package is installed by running `python -m msc_ingest.parse_xml sample_records/sample.xml` from this directory
 
 1. Edit dd_swob_marine.conf as needed, eg to change temp directory
 
 1. Create a postgres database and run `db.sql` to create a table, and GRANT permissions to a user to read/write
 
-1. Change this line in `msc_ingest/ingest_to_db.py`: `db_string = "postgres://user:pass@host:5432/database"` to reflect your DB settings.
+1. Change `config.ini` to reflect your DB settings.
 
-1. Test that it works by running `python msc_ingest/ingest_to_db.py sample.xml` from this directory. This should create a new record in your table. Note that running this multiple times will not produce multiple records.
+1. Test that it works by running `python msc_ingest/ingest_to_db.py sample_records/sample.xml` from this directory. This should create a new record in your table. Note that running this multiple times will not produce multiple records.
 
 1. Start recording data to the database with
    `sr_subscribe start dd_swob_marine.conf`
@@ -39,7 +39,7 @@ This repo contains scripts to receive and parse the realtime marine [SWOB-XML](h
 After installing,
 
 ```sh
-python -m msc_ingest.parse_xml sample.xml
+python -m msc_ingest.parse_xml sample_records/sample.xml
 ```
 
 ## ERDDAP

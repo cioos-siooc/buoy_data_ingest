@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
-
 import arrow
-from sqlalchemy import create_engine, MetaData, Table
-from sqlalchemy.dialects.postgresql import insert
-from fm13_ingest.decode_fm13 import decode
 import sentry_sdk
-
-import configparser
-
+from fm13_ingest.decode_fm13 import decode
+from sqlalchemy import MetaData, Table, create_engine
+from sqlalchemy.dialects.postgresql import insert
 
 """
 
@@ -16,21 +12,25 @@ This file takes a JSON document and inserts it into a Postgres database
 """
 from dotenv import dotenv_values
 
-config = dotenv_values("db.ini") 
+config = dotenv_values("config.ini")
 
-TABLE_NAME = config['DB_TABLE']
+TABLE_NAME = config["DB_TABLE"]
+
 
 class DBIngester(object):
     def __init__(self):
 
         # Init sentry
-        sentry_sdk.init(
+        if 'SENTRY_URL' in config and config.get('SENTRY')=='true':
+            sentry_sdk.init(
             config['SENTRY_URL']
-        )
+            )
+            print("Sentry initialized")
 
         self.TABLE_NAME = TABLE_NAME
+        
         # setup DB
-        self.db = create_engine(config['DB_CONNECTION'])
+        self.db = create_engine(config["DB_CONNECTION"])
         table_meta = MetaData(self.db)
         table = Table(TABLE_NAME, table_meta, autoload=True)
         self.table_columns = table.columns
@@ -59,17 +59,17 @@ class DBIngester(object):
 
         for k in list(line.keys()):
             if k not in self.table_columns:
-                print(f"Cannot insert {k}")
+                print(f"Cannot insert {k} with value {line.get(k)}")
                 del line[k]
 
-    def ingest(self, filename: str, logger, metadata={}):
+    def ingest(self, filename: str, metadata={}):
         """Ingest FM13 file to database. Also gets some metadata from AMQP"""
         with open(filename) as file:
             lines = file.read()
             record = decode(lines)
 
             if not record["station_id"]:
-                logger.info("skipping record, no station ID (not a buoy?)")
+                print("skipping record, no station ID (not a buoy?)")
                 return None
             if "hour" in record and "day" in record:
                 # buoy reported day

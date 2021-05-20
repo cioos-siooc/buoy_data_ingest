@@ -1,4 +1,4 @@
-DB_CONNECTION = "postgres://user:pass@host:port/database"
+DB_CONNECTION = "postgresql://user:pass@host:port/database"
 DB_TABLE = 'meds_buoys_realtime_non_opp'
 SENTRY_URL = "https://abc@def.ingest.sentry.io/12345"
 METAF2XML_PATH = "/opt/metaf2xml-2.7/bin/metaf2xml.pl"

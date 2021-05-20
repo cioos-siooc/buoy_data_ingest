@@ -3,6 +3,8 @@
 import subprocess
 from benedict import benedict
 import xmltodict
+from dotenv import dotenv_values
+
 
 """
 This file has funcions to convert the  FM13 text into JSON using the
@@ -23,6 +25,7 @@ decoding steps:
  - xmltodict converts it to dict
  - remapped to a flat dict with remapDict()
 """
+config = dotenv_values("config.ini")
 
 METAF2XML_PATH = config['METAF2XML_PATH']
 
