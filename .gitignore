@@ -13,3 +13,7 @@ xml_downloaded
 config.ini
 .mypy*
 .DS_Store
+meds-csv/csv*
+meds-csv/fixed*
+build
+dist

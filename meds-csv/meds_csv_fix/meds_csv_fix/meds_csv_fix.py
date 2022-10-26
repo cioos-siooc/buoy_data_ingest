@@ -14,7 +14,7 @@ Takes ~5 minutes to run
 """
 
 import glob
-
+import os
 import pandas as pd
 import requests
 
@@ -55,8 +55,8 @@ def fix_csv_files(input_folder, output_folder):
 
     df_metadata = get_deployment_metadata()
 
-    # some files have fewer columns, this ensures they all have the same columns and order for loading into the DB
-    column_order = [
+    # These station names start with "C"
+    column_order_C_buoys = [
         "STN_ID",
         "DATE",
         "Q_FLAG",
@@ -84,11 +84,35 @@ def fix_csv_files(input_folder, output_folder):
         "preciseLon",
     ]
 
-    df_cols = pd.DataFrame(columns=column_order)
+    # These stations start with "MEDS" or "WELL"
+    column_order_historic_buoys = [
+        "STN_ID",
+        "DATE",
+        "Q_FLAG",
+        "LATITUDE",
+        "LONGITUDE",
+        "DEPTH",
+        "VCAR",
+        "VTPK",
+        "preciseLat",
+        "preciseLon",
+    ]
+
     for file in glob.glob(input_folder + "/*.csv"):
         print(file)
 
-        station = str(file)[6:-4].upper()
+        # get station name
+        station = str(os.path.basename(file))[0:-4].upper()
+        
+        if station.startswith("C"):
+            column_order = column_order_C_buoys
+        elif station.startswith("MEDS") or station.startswith("WEL"):
+            column_order = column_order_historic_buoys
+        else:
+            raise RuntimeError("Station '" + station + "' not understood: " + file)
+
+        df_cols = pd.DataFrame(columns=column_order)
+
         df = pd.read_csv(
             file, parse_dates=True, dtype=str
         )
@@ -104,9 +128,8 @@ def fix_csv_files(input_folder, output_folder):
             df["LATITUDE"] = df_metadata.loc[station]["lat"]
             df["LONGITUDE"] = df_metadata.loc[station]["lon"]
         elif num_coordinates == 1:
-            print("single coordinate station without metadata")
-            df["LATITUDE"] = df["LATITUDE"]
             # this file only has one coordinate, so precise can be set to lat/lon
+            print("Single coordinate station without metadata")
             pass
         else:
             # more than one coordinate in file and no deployment data, this shouldnt happen
@@ -117,9 +140,6 @@ def fix_csv_files(input_folder, output_folder):
         df["DATE"] = pd.to_datetime(df.DATE, errors="coerce").dt.tz_localize(None)
         df = df.query("DATE.isna()==False")
 
-        # I dont know why this is needed or if it is anymore
-        df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
-
         # make sure all the same columns exist in each file
         df_out = pd.concat([df, df_cols], ignore_index=True)
 
@@ -128,9 +148,3 @@ def fix_csv_files(input_folder, output_folder):
         outfile = output_folder + "/" + station + "-fixed.csv"
         print("Wrote ", outfile)
         df_out.to_csv(outfile, index=False)
-
-
-input_folder = "./csv"
-output_folder = "./csv-fixed"
-
-fix_csv_files(input_folder, output_folder)
