@@ -31,8 +31,17 @@ This repo contains scripts to receive and parse the realtime marine [SWOB-XML](h
 
 1. Test that it works by running `python msc_ingest/ingest_to_db.py sample_records/sample.xml` from this directory. This should create a new record in your table. Note that running this multiple times will not produce multiple records.
 
-1. Start recording data to the database with
-   `sr_subscribe start dd_swob_marine.conf`
+1. Add config file to cache
+   `sr3 add dd_swob_marine.conf`
+
+1. Test recording data to the database with
+   `sr3 foreground subscribe/dd_swob_marine`
+
+1. Edit config file as needed
+   `sr3 edit subscribe/dd_swob_marine`
+
+1. Edit config file as needed
+   `sr3 start subscribe/dd_swob_marine`
 
 ## Just parsing an XML file
 
@@ -49,20 +58,7 @@ The datasets.xml provided should cover all of the possible fields in the data, b
 ## Troubleshooting
 
 Sarracenia logging:
-`sr_subscribe log dd_swob_marine.conf`
-
-## Buoy list
-
-At time of writing there are 3 Atlantic and 2 Pacific buoys available in this system:
-
-Pacific:
-46303
-46304
-
-Atlantic:
-44488
-44489
-44490
+`sr3 log dd_swob_marine.conf`
 
 ## Links
 
@@ -75,5 +71,5 @@ Sarracenia
 Raw XML files that get pushed into this system. Also find list of currently published buoys here
 <https://dd.weather.gc.ca/observations/swob-ml/marine/moored-buoys>
 
-SWOB Manual
-<https://collaboration.cmc.ec.gc.ca/cmc/cmos/public_doc/msc-data/obs_station/SWOB-ML_Product_User_Guide_v8.3_e.pdf>
+SWOB Manual (PDF)
+<https://collaboration.cmc.ec.gc.ca/cmc/cmos/public_doc/msc-data/obs_station/>
