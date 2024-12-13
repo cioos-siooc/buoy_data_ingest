@@ -32,7 +32,7 @@ This repo contains scripts to receive and parse the realtime marine [SWOB-XML](h
 1. Test that it works by running `python msc_ingest/ingest_to_db.py sample_records/sample.xml` from this directory. This should create a new record in your table. Note that running this multiple times will not produce multiple records.
 
 1. Add config file to cache
-   `sr3 add dd_swob_marine.conf`
+   `sr3 add ./dd_swob_marine.conf`
 
 1. Test recording data to the database with
    `sr3 foreground subscribe/dd_swob_marine`

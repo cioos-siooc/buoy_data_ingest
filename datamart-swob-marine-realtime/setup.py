@@ -12,12 +12,12 @@ setup(
     url="",
     include_package_data=True,
     install_requires=[
-        "metpx-sarracenia",
+        "metpx-sr3",
         "psycopg2-binary",
         "xmltodict",
         "sqlalchemy",
         "paramiko",
         "click",
-        "python-dotenv"
+        "python-dotenv",
     ],
 )
