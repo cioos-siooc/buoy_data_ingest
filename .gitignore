@@ -7,13 +7,7 @@ csv
 __pycache__
 *.egg-info
 .ipynb_checkpoints
+*.ipynb
 buoystat
-*swob.xml
-xml_downloaded
-config.ini
-.mypy*
-.DS_Store
-meds-csv/csv*
-meds-csv/fixed*
-build
-dist
+meds/csv-fixed/*-fixed.csv
+meds/meds_combined.csv
