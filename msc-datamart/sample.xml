@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<om:ObservationCollection xmlns:om="http://www.opengis.net/om/1.0" xmlns="http://dms.ec.gc.ca/schema/point-observation/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <om:member>
+        <om:Observation>
+            <om:metadata>
+                <set>
+                    <general>
+                        <author build="build.24" name="MSC-DMS-PG-SWOB" version="3.0" />
+                        <dataset name="msc/observation/atmospheric/marine/moored_buoy-1.3-ascii" />
+                        <phase name="product_generic_swob-xml-2.0" />
+                        <id xlink:href="/data/msc/observation/atmospheric/marine/moored_buoy-1.3-ascii/product_generic_swob-xml-2.0/202001162030/9300300/4400490/iridium/27/orig/data_10" />
+                        <parent xlink:href="/data/msc/observation/atmospheric/marine/moored_buoy-1.3-ascii/decoded_enhanced-xml-2.0/202001162030/9300300/4400490/iridium/27/orig/data_10" />
+                    </general>
+                    <identification-elements>
+                        <element name="wmo_synop_id" uom="unitless" value="44490" />
+                        <element name="msc_id" uom="unitless" value="9300300" />
+                        <element name="stn_nam" uom="unitless" value="Test Record Delete Me" />
+                        <element name="stn_elev" uom="m" value="0.000" />
+                        <element name="lat" uom="°" value="44.660560" />
+                        <element name="long" uom="°" value="-66.368600" />
+                        <element code-src="std_code_src" code-type="buoy_type" name="stn_typ" uom="code" value="18" />
+                        <element name="date_tm" uom="datetime" value="2020-01-16T20:30:00.000Z" />
+                        <element code-src="std_code_src" code-type="report_type" name="rpt_typ" uom="code" value="110" />
+                    </identification-elements>
+                </set>
+            </om:metadata>
+            <om:samplingTime>
+                <gml:TimeInstant>
+                    <gml:timePosition>2020-01-16T20:30:00.000Z</gml:timePosition>
+                </gml:TimeInstant>
+            </om:samplingTime>
+            <om:resultTime>
+                <gml:TimeInstant>
+                    <gml:timePosition>2020-01-16T20:32:15.913Z</gml:timePosition>
+                </gml:TimeInstant>
+            </om:resultTime>
+            <om:procedure xlink:href="/metadata/msc/mr/marine_monitoring/moored_buoy_stn_cfg/instance-xml-2.0/9300300?version=3.4" />
+            <om:observedProperty gml:remoteSchema="/schema/point-observation/2.0.xsd" />
+            <om:featureOfInterest>
+                <gml:FeatureCollection>
+                    <gml:location>
+                        <gml:Point>
+                            <gml:pos>44.66485 -66.36697</gml:pos>
+                        </gml:Point>
+                    </gml:location>
+                </gml:FeatureCollection>
+            </om:featureOfInterest>
+            <om:result>
+                <elements>
+                    <element name="crnt_buoy_lat" uom="°" value="44.664850">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="crnt_buoy_long" uom="°" value="-66.366970">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_air_temp_pst10mts" uom="°C" value="1.1">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_sea_sfc_temp_pst10mts" uom="°C" value="7.5">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_batry_volt_pst10mts" uom="V" value="12.5">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_solr_panl_crnt_pst10mts" uom="A" value="0.10">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_wtr_lvl_snsr_volt_pst10mts" uom="V" value="3.50">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_wave_hgt_pst20mts" uom="m" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="pk_wave_hgt_pst20mts" uom="m" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="sig_wave_pd_pst20mts" uom="s" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="sig_wave_hgt_pst20mts" uom="m" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="avg_max_wave_hgt_pst20mts" uom="m" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="avg_max_wave_pd_pst20mts" uom="s" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="avg_wave_pd_pst20mts" uom="s" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="pk_wave_pd_pst20mts" uom="s" value="MSNG">
+                        <qualifier name="qa_summary" uom="unitless" value="-1" />
+                    </element>
+                    <element name="avg_stn_pres_pst10mts" uom="hPa" value="1002.8">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_wnd_spd_pst10mts" uom="km/h" value="33.8">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="avg_wnd_dir_pst10mts" uom="°" value="69">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="max_avg_wnd_spd_pst10mts" uom="km/h" value="42.1">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element name="wnd_snsr_vert_disp" uom="m" value="5">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                    </element>
+                    <element code-src="std_code_src" code-type="tendency_characteristic" name="pres_tend_char_pst3hrs" uom="code" value="6">
+                        <qualifier code-src="std_code_src" code-type="data_flags" name="data_flag" uom="code" value="1" />
+                    </element>
+                    <element name="pres_tend_amt_pst3hrs" uom="hPa" value="-4.2">
+                        <qualifier name="qa_summary" uom="unitless" value="100" />
+                        <qualifier code-src="std_code_src" code-type="data_flags" name="data_flag" uom="code" value="1" />
+                    </element>
+                    <element name="avg_mslp_pst10mts" uom="hPa" value="1002.8">
+                        <qualifier code-src="std_code_src" code-type="data_flags" name="data_flag" uom="code" value="1" />
+                    </element>
+                    <element name="avg_stn_pres_pst10mts_1" uom="hPa" value="1002.8" />
+                    <element name="avg_stn_pres_pst10mts_2" uom="hPa" value="1002.8" />
+                    <element name="avg_wnd_spd_pst10mts_1" uom="km/h" value="33.8" />
+                    <element name="avg_wnd_spd_pst10mts_2" uom="km/h" value="34.6" />
+                    <element name="avg_wnd_dir_pst10mts_1" uom="°" value="69" />
+                    <element name="avg_wnd_dir_pst10mts_2" uom="°" value="67" />
+                    <element name="max_avg_wnd_spd_pst10mts_1" uom="km/h" value="42.1" />
+                    <element name="max_avg_wnd_spd_pst10mts_2" uom="km/h" value="45.0" />
+                    <element name="wnd_snsr_vert_disp_1" uom="m" value="5" />
+                    <element name="wnd_snsr_vert_disp_2" uom="m" value="4" />
+                </elements>
+            </om:result>
+        </om:Observation>
+    </om:member>
+</om:ObservationCollection>
